@@ -48,7 +48,7 @@ final class RiotApi implements Interfaces\RiotApi
 
     public function getRegionServer()
     {
-        return VALID_REGIONS[$this->config['region']];
+        return self::VALID_REGIONS[$this->config['region']];
     }
 
     public function getEndpoint(string $name) : Interfaces\Endpoints\Base
@@ -63,7 +63,7 @@ final class RiotApi implements Interfaces\RiotApi
             }
 
             $class = $endpointMapping[$name];
-            $this->endpoints[$name] = new $class(new GuzzleHttpClient(), new UrlBuilder());
+            $this->endpoints[$name] = new $class(new GuzzleHttpClient(), new UrlBuilder($this->getRegionServer()));
         }
 
         return $this->endpoints[$name];

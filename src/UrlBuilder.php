@@ -9,9 +9,10 @@ final class UrlBuilder implements Interfaces\UrlBuilder
     protected $paramBag;
     protected $builder;
 
-    public function __construct(ParamBag $paramBag = null)
+    public function __construct($regionServer)
     {
-        $this->paramBag = $paramBag ?? new ParamBag();
+        $this->paramBag = new ParamBag();
+        $this->paramBag->set('regionServer', $regionServer);
 
         return $this;
     }
@@ -30,8 +31,16 @@ final class UrlBuilder implements Interfaces\UrlBuilder
         return $this;
     }
 
-    public function build() : string
+    public function buildUri()
     {
         return call_user_func($this->builder, $this->paramBag);
+    }
+
+    public function build() : string
+    {
+        return 'https://'
+            .$this->paramBag->get('regionServer')
+            .'.api.riotgames.com/'
+            .$this->buildUri();
     }
 }

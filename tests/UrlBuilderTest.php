@@ -12,7 +12,18 @@ final class UrlBuilderTest extends TestCase
 
     public function setUp()
     {
-        $this->builder = new UrlBuilder();
+        $this->builder = new UrlBuilder('euw1');
+    }
+
+    public function testRegionServerIsSet()
+    {
+        $url = $this->builder
+            ->setBuilder(function ($paramBag) {
+                return "lol/resources/{$paramBag->get('regionServer')}";
+            })
+            ->buildUri();
+
+        $this->assertEquals($url, 'lol/resources/euw1');
     }
 
     public function testBuild()
@@ -25,13 +36,13 @@ final class UrlBuilderTest extends TestCase
             })
             ->build();
 
-        $this->assertEquals($url, 'lol/resources/1/blah/hello');
+        $this->assertEquals($url, 'https://euw1.api.riotgames.com/lol/resources/1/blah/hello');
 
         $url = $this->builder
             ->setBuilder(function ($paramBag) {
                 return "foo/bar/blah/{$paramBag->get('foo')}";
             })
             ->build();
-        $this->assertEquals($url, 'foo/bar/blah/1');
+        $this->assertEquals($url, 'https://euw1.api.riotgames.com/foo/bar/blah/1');
     }
 }

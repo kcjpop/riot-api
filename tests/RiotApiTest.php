@@ -27,7 +27,7 @@ final class RiotApiTest extends TestCase
     public function testCreateUnsupportedEndpoint() : void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $api = new RiotApi(['apiKey' => 'bar']);
+        $api = new RiotApi(['apiKey' => 'bar', 'region' => 'eune']);
         $api->fooEndpoint;
     }
 
