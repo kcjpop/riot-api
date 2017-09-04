@@ -8,6 +8,6 @@ interface UrlBuilder
 {
     public function setParam(string $key, $value) : self;
     public function setBuilder(callable $builder) : self;
-    public function build() : string;
+    public function build(array $queryStringParams = []) : string;
 }
 

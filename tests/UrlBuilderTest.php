@@ -42,7 +42,7 @@ final class UrlBuilderTest extends TestCase
             ->setBuilder(function ($paramBag) {
                 return "foo/bar/blah/{$paramBag->get('foo')}";
             })
-            ->build();
-        $this->assertEquals($url, 'https://euw1.api.riotgames.com/foo/bar/blah/1');
+            ->build(['p1' => 1, 'p2' => 'foo']);
+        $this->assertEquals($url, 'https://euw1.api.riotgames.com/foo/bar/blah/1?p1=1&p2=foo');
     }
 }

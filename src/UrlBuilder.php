@@ -36,11 +36,14 @@ final class UrlBuilder implements Interfaces\UrlBuilder
         return call_user_func($this->builder, $this->paramBag);
     }
 
-    public function build() : string
+    public function build(array $queryStringParams = []) : string
     {
         return 'https://'
             .$this->paramBag->get('regionServer')
             .'.api.riotgames.com/'
-            .$this->buildUri();
+            .$this->buildUri()
+            .(!empty($queryStringParams)
+                ? '?'.http_build_query($queryStringParams)
+                : '' );
     }
 }

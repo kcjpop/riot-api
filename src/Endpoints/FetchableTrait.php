@@ -21,7 +21,7 @@ trait FetchableTrait
 
     public function fetch(array $queryStringParams = []) : ResponseInterface
     {
-        $url = $this->urlBuilder->build();
+        $url = $this->urlBuilder->build($queryStringParams);
 
         return $this->httpClient->fetch($url);
     }
