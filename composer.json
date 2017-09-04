@@ -1,0 +1,8 @@
+{
+    "name": "kcjpop/riot-api",
+    "description": "A wrapper for Riot API",
+    "type": "library",
+    "license": "MPL-2.0",
+    "minimum-stability": "stable",
+    "require": {}
+}
