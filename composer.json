@@ -4,5 +4,27 @@
     "type": "library",
     "license": "MPL-2.0",
     "minimum-stability": "stable",
-    "require": {}
+    "config": {
+      "platform": {
+        "php": "7.0"
+      }
+    },
+    "autoload": {
+    	"psr-4": {
+    		"Outplay\\RiotApi\\": "src/"
+    	}
+    },
+    "scripts": {
+      "test": "phpunit",
+    	"test:coverage": "phpunit --coverage-html coverage/"
+    },
+    "require": {
+    	"php": "^7.0",
+      "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^6.0",
+      "mockery/mockery": "^0.9.9",
+        "satooshi/php-coveralls": "^1.0"
+    }
 }
