@@ -9,19 +9,26 @@ use PHPUnit\Framework\TestCase;
 
 final class RiotApiTest extends TestCase
 {
+    protected $validEndpoints = ['summoner', 'champion'];
+
     public function testCreateEndpoint()
     {
         $api = new RiotApi(['apiKey' => 'foo', 'region' => 'EUNE']);
 
-        $this->assertInstanceOf(EndpointInterface::class, $api->getEndpoint('summoners'));
+        foreach ($this->validEndpoints as $endpoint) {
+            $this->assertInstanceOf(EndpointInterface::class, $api->getEndpoint($endpoint));
+        }
     }
 
     public function testCreateEndpointAsClassProperty()
     {
         $api = new RiotApi(['apiKey' => 'foo', 'region' => 'EUNE']);
 
-        $this->assertInstanceOf(EndpointInterface::class, $api->summoners);
-        $this->assertEquals($api->summoners, $api->getEndpoint('summoners'));
+        foreach ($this->validEndpoints as $endpoint) {
+            $this->assertInstanceOf(EndpointInterface::class, $api->$endpoint);
+            $this->assertEquals($api->$endpoint, $api->getEndpoint($endpoint));
+        }
+
     }
 
     public function testCreateUnsupportedEndpoint()

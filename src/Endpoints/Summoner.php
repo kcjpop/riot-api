@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Outplay\RiotApi\Endpoints;
 
-use Outplay\RiotApi\Interfaces\Endpoints\Base;
+use Outplay\RiotApi\Interfaces\Endpoints\Summoner as SummonerInterface;
 
-class Summoners implements Base
+class Summoner implements SummonerInterface
 {
     const VERSION = 'v3';
 
     use FetchableTrait;
 
-    public function getByName(string $summonerName) : self
+    public function getByName(string $summonerName) : SummonerInterface
     {
         $this->urlBuilder
             ->setParam('summonerName', $summonerName)

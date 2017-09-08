@@ -22,6 +22,11 @@ final class RiotApi implements Interfaces\RiotApi
         'tr' => 'tr1',
     ];
 
+    const VALID_ENDPOINTS = [
+        'champion' => Endpoints\Champion::class,
+        'summoner' => Endpoints\Summoner::class,
+    ];
+
     public function __construct(array $config)
     {
         $this->config = array_merge($this->config, $config);
@@ -53,16 +58,12 @@ final class RiotApi implements Interfaces\RiotApi
 
     public function getEndpoint(string $name) : Interfaces\Endpoints\Base
     {
-        $endpointMapping = [
-            'summoners' => Endpoints\Summoners::class,
-        ];
-
         if (!isset($this->endpoints[$name])) {
-            if (!isset($endpointMapping[$name])) {
+            if (!isset(self::VALID_ENDPOINTS[$name])) {
                 throw new \InvalidArgumentException("Unsupported endpoint: $name. Please check the documentation.");
             }
 
-            $class = $endpointMapping[$name];
+            $class = self::VALID_ENDPOINTS[$name];
             $this->endpoints[$name] = new $class(new GuzzleHttpClient(), new UrlBuilder($this->getRegionServer()));
         }
 

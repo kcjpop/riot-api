@@ -22,7 +22,7 @@ final class ParamBag implements Interfaces\ParamBag
 
     public function get($key)
     {
-        if (!isset($this->store[$key])) {
+        if (!array_key_exists($key, $this->store)) {
             throw new \InvalidArgumentException("Cannot find key in parameter bag: $key.");
         }
 
